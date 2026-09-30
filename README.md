@@ -11,7 +11,7 @@ Launcher nativo macOS (SwiftUI) per connessioni RDP. Non implementa il protocoll
 - Opzioni per connessione: risoluzione, schermo intero, appunti, certificato, argomenti extra
 
 ## Requisiti
-macOS 14+, `brew install freerdp`
+macOS 14+, `brew install freerdp`. Download: [ultima release](https://github.com/Gab8bit/MiniRDP/releases/latest/download/MiniRDP-macOS.zip). Al primo avvio: Impostazioni di Sistema → Privacy e sicurezza → **Apri comunque**.
 
 ## Build
 ```bash

@@ -74,6 +74,7 @@ h2{font-size:clamp(28px,4.5vw,40px);letter-spacing:-.02em;text-align:center;marg
 .steps{counter-reset:s;display:grid;gap:14px;max-width:640px;margin:auto}
 .step{counter-increment:s;display:flex;gap:16px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
 .step::before{content:counter(s);flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--a),var(--b))}
+ol.gk{margin:10px 0 0 18px;color:var(--mut);font-size:14px;line-height:1.7}ol.gk b,ol.gk i{color:var(--fg)}
 code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:#94a3b833;padding:2px 7px;border-radius:6px}
 footer{text-align:center;color:var(--mut);font-size:14px;padding:40px 20px 60px;border-top:1px solid var(--line)}
 footer a{color:var(--a)}
@@ -89,7 +90,7 @@ footer a{color:var(--a)}
 <nav><div class="in">
   <img src="icon.png" alt=""><b>MiniRDP</b><span class="sp"></span>
   <a class="l" href="#perche">Perché</a><a class="l" href="#funzioni">Funzioni</a><a class="l" href="#installa">Installa</a>
-  <a class="btn download-btn" href="https://github.com/Gab8bit/MiniRDP/releases/latest">Scarica</a>
+  <a class="btn download-btn" href="https://github.com/Gab8bit/MiniRDP/releases/latest/download/MiniRDP-macOS.zip">Scarica</a>
 </div></nav>
 
 <main>
@@ -98,7 +99,7 @@ footer a{color:var(--a)}
   <h1>Desktop remoto,<br><span>senza fronzoli.</span></h1>
   <p class="sub">Un launcher nativo per macOS che apre connessioni RDP in un click. Indirizzo, utente, password: fatto.</p>
   <div class="cta">
-    <a class="btn download-btn" href="https://github.com/Gab8bit/MiniRDP/releases/latest">⬇︎ Scarica per macOS</a>
+    <a class="btn download-btn" href="https://github.com/Gab8bit/MiniRDP/releases/latest/download/MiniRDP-macOS.zip">⬇︎ Scarica l'ultima release</a>
     <a class="btn s" href="https://github.com/Gab8bit/MiniRDP">Codice su GitHub</a>
   </div>
   <p class="note">macOS 14 o successivo · gratuito · open source</p>
@@ -152,23 +153,25 @@ footer a{color:var(--a)}
   <h2 class="reveal">Pronta in tre passi</h2>
   <p class="lead reveal">Serve solo il client FreeRDP di Homebrew.</p>
   <div class="steps">
-    <div class="step reveal"><div>Installa FreeRDP<br><code>brew install freerdp</code></div></div>
-    <div class="step reveal"><div>Scarica <b>MiniRDP.zip</b>, decomprimilo e trascina l'app in Applicazioni.</div></div>
-    <div class="step reveal"><div>Al primo avvio: tasto destro → <b>Apri</b>. Se macOS blocca l'app, esegui<br><code>xattr -dr com.apple.quarantine /Applications/MiniRDP.app</code></div></div>
+    <div class="step reveal"><div><b>Installa FreeRDP</b><br>MiniRDP usa il client di Homebrew.<br><code>brew install freerdp</code></div></div>
+    <div class="step reveal"><div><b>Scarica e installa</b><br>Scarica l'ultima release, decomprimi lo zip e trascina <b>MiniRDP</b> in <b>Applicazioni</b>.</div></div>
+    <div class="step reveal"><div><b>Primo avvio: sblocca l'app</b> (serve una volta sola)
+      <ol class="gk">
+        <li>Apri <b>Applicazioni</b> e fai doppio click su <b>MiniRDP</b>.</li>
+        <li>macOS dice che non può verificare l'app e la blocca: premi <b>Fine</b>.</li>
+        <li>Apri <b>Impostazioni di Sistema → Privacy e sicurezza</b>.</li>
+        <li>Scorri fino in fondo: vedrai <i>“MiniRDP” è stata bloccata per proteggere il Mac</i> con il pulsante <b>Apri comunque</b>. Premilo.</li>
+        <li>Autenticati (password o Touch ID) e conferma con <b>Apri</b>.</li>
+      </ol></div></div>
   </div>
-  <div class="cta" style="margin-top:34px"><a class="btn download-btn" href="https://github.com/Gab8bit/MiniRDP/releases/latest">⬇︎ Scarica MiniRDP</a></div>
-  <p class="note" style="text-align:center">L'app è firmata ad-hoc (non notarizzata), per questo il primo avvio richiede il passaggio manuale.</p>
+  <div class="cta" style="margin-top:34px"><a class="btn download-btn" href="https://github.com/Gab8bit/MiniRDP/releases/latest/download/MiniRDP-macOS.zip">⬇︎ Scarica l'ultima release</a></div>
+  <p class="note" style="text-align:center">Il pulsante scarica sempre l'ultima release. L'app è firmata ad-hoc (non notarizzata): per questo il primo avvio richiede lo sblocco manuale.</p>
 </section>
 </main>
 
 <footer>MiniRDP · <a href="https://github.com/Gab8bit/MiniRDP">GitHub</a> · usa <a href="https://www.freerdp.com">FreeRDP</a></footer>
 
 <script>
-// Il pulsante punta all'asset .zip dell'ultima release (nessuna versione scritta nella pagina).
-fetch('https://api.github.com/repos/Gab8bit/MiniRDP/releases/latest').then(r=>r.json()).then(rel=>{
-  const a=(rel.assets||[]).find(x=>x.name.endsWith('.zip'));
-  if(a) document.querySelectorAll('.download-btn').forEach(el=>el.href=a.browser_download_url);
-}).catch(()=>{});
 // Rivelazione allo scroll
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.15});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
